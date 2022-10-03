@@ -23,7 +23,7 @@ public class LibraryController {
         return ResponseEntity.ok(libraryDto);
     }
 
-    @GetMapping("/library/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> library(@PathVariable("id") Integer userId){
         LibraryDto libraryDto = libraryService.getLibraryOfUser(userId);
         return ResponseEntity.ok(libraryDto);
@@ -41,4 +41,9 @@ public class LibraryController {
 
 
     // TODO: Remove my History
+    @DeleteMapping("/user/{id}")
+    public ResponseEntity<?> delete(@PathVariable ("id") Integer id){
+        boolean result = libraryService.delete(id);
+        return ResponseEntity.ok(result);
+    }
 }

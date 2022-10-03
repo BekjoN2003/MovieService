@@ -2,11 +2,13 @@ package com.example.test.service;
 
 import com.example.test.dto.auth.LibraryDto;
 import com.example.test.entity.Library;
+import com.example.test.entity.User;
 import com.example.test.exception.BadRequest;
 import com.example.test.repository.LibraryRepo;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 
 @Service
@@ -21,6 +23,14 @@ public class LibraryService {
         this.libraryRepo = libraryRepo;
         this.userService = userService;
         this.movieService = movieService;
+    }
+
+    public Library getEntity(Integer id) {
+        Optional<Library> optional = libraryRepo.findById(id);
+        if (optional.isEmpty()) {
+            throw new BadRequest("Library not found");
+        }
+        return optional.get();
     }
 
     public LibraryDto watch(Integer movieId, Integer userId) {
@@ -48,5 +58,12 @@ public class LibraryService {
     public LibraryDto getLibraryOfUserForAdmin(Integer userId) {
         Library library = libraryRepo.findById(userId).orElseThrow(() -> new BadRequest("Library not found"));
         return convertToDto(library,new LibraryDto());
+    }
+
+    public boolean delete(Integer id) {
+        Library library = getEntity(id);
+        library.setDeletedAt(LocalDateTime.now());
+        libraryRepo.save(library);
+        return true;
     }
 }
