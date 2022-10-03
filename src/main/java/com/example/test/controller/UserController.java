@@ -57,7 +57,6 @@ public class UserController {
         return ResponseEntity.ok(result);
     }
 
-    // TODO: Delete Profile
     @GetMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") Integer id){
         boolean result = userService.delete(id);
@@ -68,7 +67,7 @@ public class UserController {
     // TODO: Block  User (Admin)
     @GetMapping("/block/{id}")
     public ResponseEntity<?> blockUser(@PathVariable("id") Integer id){
-        UserDto result = userService.block(id);
+        String result = userService.block(id);
         return ResponseEntity.ok(result);
     }
 
@@ -90,9 +89,8 @@ public class UserController {
         return ResponseEntity.ok(result);
     }
 
-
-
     // TODO: Update to Admin (ADMIN)
+
 
     // TODO: Update to User (SUPER USER)
 

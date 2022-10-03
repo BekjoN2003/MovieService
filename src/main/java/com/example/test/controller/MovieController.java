@@ -5,6 +5,7 @@ import com.example.test.dto.movie.MovieDto;
 import com.example.test.dto.movie.MovieFilterDto;
 import com.example.test.dto.movie.MovieListResponse;
 import com.example.test.service.MovieService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,13 +13,10 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/api/v1/movies")
 public class MovieController {
     private final MovieService movieService;
-
-    public MovieController(MovieService movieService) {
-        this.movieService = movieService;
-    }
 
     @PostMapping("/create")
     public ResponseEntity<?> createMovie(@RequestBody @Valid MovieCreateDto dto) {
@@ -38,7 +36,6 @@ public class MovieController {
         return ResponseEntity.ok(result);
     }
 
-    // TODO: Get All Movies
     @GetMapping("/getAll")
     public ResponseEntity<?> getAllMovies(@RequestParam("page") Integer page,
                                           @RequestParam("size") Integer size) {
@@ -56,7 +53,7 @@ public class MovieController {
 
 
     // TODO: Update Movie (ADMIN)
-    @PutMapping("/update/{id}")
+    @PutMapping("/update/secured/{id}")
     public ResponseEntity<?> updateMovie(@PathVariable("id") @Valid MovieDto movieDto,
                                          Integer id) {
         MovieDto result = movieService.update(id, movieDto);

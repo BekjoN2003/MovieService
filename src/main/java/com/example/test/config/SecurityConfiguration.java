@@ -1,6 +1,7 @@
 package com.example.test.config;
 
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,15 +20,15 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
         securedEnabled = true,
         jsr250Enabled = true,
         prePostEnabled = true)
+@AllArgsConstructor
 @EnableWebSecurity
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Autowired
     private CustomUserDetailService customUserDetailService;
-    @Autowired
+
     private JwtTokenFilter jwtTokenFilter;
-    @Autowired
+
     private AuthEntryPointJwt jwtAuthenticationEntryPoint;
 
     @Override

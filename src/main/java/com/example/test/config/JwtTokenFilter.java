@@ -28,7 +28,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         System.out.println("Filterga keldi");
         // Get authorization header and validate
-        final String header = request.getHeader("Authorization"); // (HttpHeaders.AUTHORIZATION);
+        final String header = request.getHeader("Authorization"); //(HttpHeaders.AUTHORIZATION);
         if (header == null || !header.startsWith("Bearer ")) {
             chain.doFilter(request, response);
             return;

@@ -16,7 +16,6 @@ import com.example.test.repository.UserRepo;
 import javax.persistence.criteria.Predicate;
 
 import com.example.test.exception.BadRequest;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.example.test.dto.user.UserFilterDto;
 import com.example.test.dto.user.UserCreateDto;
@@ -30,9 +29,9 @@ public class UserService {
     private final AuthService authService;
 
 
-    public UserService(UserRepo userRepo, PasswordEncoder passwordEncoder, AuthService authService, AuthService authService1, PasswordEncoder passwordEncoder1) {
+    public UserService(UserRepo userRepo, AuthService authService) {
         this.userRepo = userRepo;
-        this.authService = authService1;
+        this.authService = authService;
     }
 
     public UserDto create(UserCreateDto createDto) {
@@ -153,7 +152,10 @@ public class UserService {
         return null;
     }
 
-    public UserDto block(Integer id) {
-        return null;
+    public String block(Integer id) {
+       User user = getEntity(id);
+       user.setStatus(false);
+       userRepo.save(user);
+        return "User bocked !";
     }
 }
