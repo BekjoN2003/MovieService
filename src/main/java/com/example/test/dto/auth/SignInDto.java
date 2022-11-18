@@ -22,4 +22,5 @@ public class SignInDto {
     @Size(min = 8, message = ("Minimum Size for password 8"))
     private String password;
 
+
 }

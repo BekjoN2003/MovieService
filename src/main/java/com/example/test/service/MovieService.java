@@ -37,7 +37,13 @@ public class MovieService {
     public MovieDto create(MovieCreateDto createDto) {
         Movie movie = new Movie();
         movie.setName(createDto.getName());
+        movie.setUrl(createDto.getUrl());
         movie.setDescription(createDto.getDescription());
+        String[] valid = createDto.getUrl().split("=" );
+        if (valid.length != 2 || !valid[1].startsWith("https://www.youtube.com/watch?v")){
+            throw new BadRequest("Invalid URL");
+        }
+        movie.setUrl(valid[1]);
         movie.setCreatorId(SpringSecurityUtil.getUserId());
         movie.setCreatedAt(LocalDateTime.now());
         movieRepo.save(movie);
@@ -57,6 +63,7 @@ public class MovieService {
     }
 
     public MovieDto convertToDto(Movie movie, MovieDto dto) {
+        dto.setUrl(movie.getUrl());
         dto.setId(movie.getId());
         dto.setName(movie.getName());
         dto.setDescription(movie.getDescription());
@@ -114,19 +121,24 @@ public class MovieService {
             }
         }
         return movieDtoList;
-/*        return pageList.stream().map(movie -> {
+
+        //-----------------Lambda expression--------------------//
+
+        /*return pageList.stream().map(movie -> {
                     if (movie.getDeletedAt() == null) {
                         return convertToDto(movie, new MovieDto());
                     }
                     return null;
                 }
-        ).collect(Collectors.toList());*/
-
-        /*return pageList.stream().map(movie -> {
+        ).collect(Collectors.toList());
+        return pageList.stream().map(movie -> {
             if (movie.getDeletedAt() == null) return convertToDto(movie, new MovieDto());
             return null;
         }
-        ) .collect(Collectors.toList());//Lambda expression*/
+        ) .collect(Collectors.toList());*/
+
+
+        //-----------------Lambda expression--------------------//
     }
 
     public boolean delete(Integer id) {
@@ -138,6 +150,7 @@ public class MovieService {
 
     public MovieDto update(Integer id, MovieDto movieDto) {
         Movie movie = getEntity(id);
+        movie.setUrl(movieDto.getUrl());
         movie.setName(movieDto.getName());
         movie.setDescription(movieDto.getDescription());
         return convertToDto(movie, new MovieDto());

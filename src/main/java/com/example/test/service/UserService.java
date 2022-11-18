@@ -73,8 +73,7 @@ public class UserService {
         List<Predicate> predicateList = new LinkedList<>();
         Specification<User> specification = ((root, query, criteriaBuilder) -> {
             if (dto.getName() != null) {
-                predicateList.add(criteriaBuilder.like(root.get("name"), "%" +
-                        dto.getName() + "%"));
+                predicateList.add(criteriaBuilder.like(root.get("name"), "%" + dto.getName() + "%"));
             }
             if (dto.getEmail() != null) {
                 predicateList.add(criteriaBuilder.equal(root.get("email"),
@@ -131,7 +130,6 @@ public class UserService {
 
     public List<UserDto> getAll(Integer page, Integer size) {
         PageRequest pageRequest = PageRequest.of(page, size);
-
         Page<User> userPage = userRepo.findAll(pageRequest);
 
         List<UserDto> userDtoList = new LinkedList<>();
@@ -148,7 +146,6 @@ public class UserService {
     }
 
     public UserDto password(Integer id, UserDto dto) {
-
         return null;
     }
 

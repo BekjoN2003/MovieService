@@ -1,4 +1,4 @@
-package com.example.test.config;
+package com.example.test.utill;
 
 import io.jsonwebtoken.*;
 import org.springframework.security.core.userdetails.UserDetails;

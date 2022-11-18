@@ -13,5 +13,6 @@ public class MovieDto {
     private String name;
     private String description;
     private UserDto user;
+    private String url;
 
 }

@@ -18,6 +18,7 @@ public class Movie {
 
     private String name;
     private String description;
+    private String url;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = ("creator_id"), insertable = false, updatable = false)

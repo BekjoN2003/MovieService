@@ -1,6 +1,6 @@
 package com.example.test.service;
 
-import com.example.test.config.JwtTokenUtil;
+import com.example.test.utill.JwtTokenUtil;
 import com.example.test.dto.auth.LoginDto;
 import com.example.test.dto.auth.LoginResultDto;
 import com.example.test.dto.auth.SignInDto;
@@ -20,7 +20,7 @@ import java.util.Optional;
 public class AuthService {
     private final UserRepo userRepo;
     private final PasswordEncoder passwordEncoder;
-    private final JwtTokenUtil jwtTokenUtil;
+    private final JwtTokenUtil  jwtTokenUtil;
     private final MailSenderService mailSenderService;
     @Value(" ${auth.verification.api}")
     private String verificationLinc ;

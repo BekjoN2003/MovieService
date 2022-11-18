@@ -17,13 +17,13 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                                   HttpHeaders headers,
                                                                   HttpStatus status,
-                                                                  WebRequest request){
+                                                                  WebRequest request) {
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", new Date());
         body.put("status", status.value());
 
         List<String> errors = new ArrayList<>();
-        for (FieldError error: ex.getBindingResult().getFieldErrors()) {
+        for (FieldError error : ex.getBindingResult().getFieldErrors()) {
             errors.add(error.getDefaultMessage());
         }
 

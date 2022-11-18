@@ -45,7 +45,7 @@ public class UserController {
         return ResponseEntity.ok(resul);
     }
 
-    @GetMapping("/secured/getAll")
+    @GetMapping("/getAll")
     public ResponseEntity<?> getAll(@RequestParam("page")Integer page,
                                     @RequestParam("size")Integer size){
         List<UserDto> result = userService.getAll(page, size);
