@@ -25,20 +25,6 @@ public class OrderItemController {
         OrderItemDto result = orderItemService.create(dto);
         return ResponseEntity.ok(result);
     }
-    @GetMapping("/")
-    public ResponseEntity<?> getOrder(@RequestBody @Valid ImageDto dto){
-        OrderItemDto result = orderItemService.get(dto);
-        return ResponseEntity.ok(result);
-    }
-    @PutMapping("/")
-    public ResponseEntity<?> updateOrder(@RequestBody @Valid ImageDto dto){
-        OrderItemDto result = orderItemService.update(dto);
-        return ResponseEntity.ok(result);
-    }
-    @DeleteMapping("/")
-    public ResponseEntity<?> deleteOrder(@RequestBody @Valid ImageDto dto){
-        boolean result = orderItemService.delete(dto);
-        return ResponseEntity.ok(result);
-    }
+
 
 }
