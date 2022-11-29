@@ -2,7 +2,6 @@ package com.example.test.service;
 
 import com.example.test.dto.auth.LibraryDto;
 import com.example.test.entity.Library;
-import com.example.test.entity.User;
 import com.example.test.exception.BadRequest;
 import com.example.test.repository.LibraryRepo;
 import org.springframework.stereotype.Service;

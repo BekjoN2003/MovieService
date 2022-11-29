@@ -16,4 +16,6 @@ public class MovieCreateDto {
     private String description;
 
     private Integer creatorId;
+    private String url;
 }
+

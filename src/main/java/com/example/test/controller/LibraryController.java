@@ -15,7 +15,6 @@ public class LibraryController {
         this.libraryService = libraryService;
     }
 
-
     @GetMapping("/watch")
     public ResponseEntity<?> watch(@RequestParam("movie") Integer movieId,
                                    @RequestParam("user") Integer userId){

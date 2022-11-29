@@ -1,5 +1,6 @@
 package com.example.test.config;
 
+import com.example.test.utill.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -44,7 +45,6 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         // Get user identity and set it on the spring security context
         String userName = jwtTokenUtil.getUsername(token);
         UserDetails userDetails = customUserDetailService.loadUserByUsername(userName);
-
         UsernamePasswordAuthenticationToken
                 authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
