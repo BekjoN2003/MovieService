@@ -1,11 +1,16 @@
 package com.example.internet_magazin.controller;
 
+import com.example.internet_magazin.dto.product.ProductCreateDto;
 import com.example.internet_magazin.dto.product.ProductDto;
 import com.example.internet_magazin.dto.product.ProductFilterDto;
 import com.example.internet_magazin.dto.product.ProductListRepository;
+import com.example.internet_magazin.entity.Product;
+import com.example.internet_magazin.entity.ProductImage;
 import com.example.internet_magazin.service.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 
 import javax.validation.Valid;
 import java.util.List;
@@ -20,8 +25,8 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<?> createProduct(@RequestBody @Valid ProductDto dto) {
+    @PostMapping("/secured/create")
+    public ResponseEntity<?> createProduct(@RequestBody @Valid ProductCreateDto dto) {
         ProductDto result = productService.create(dto);
         return ResponseEntity.ok(result);
     }
@@ -32,28 +37,25 @@ public class ProductController {
         return ResponseEntity.ok(result);
     }
 
-
     @GetMapping("/filter")
-    public ResponseEntity<?> getFilter(@RequestBody @Valid ProductFilterDto dto) {
+    public ResponseEntity<?> getFilter(@RequestBody ProductFilterDto dto) {
         List<ProductDto> result = productService.filter(dto);
         return ResponseEntity.ok(result);
     }
 
     @PutMapping("/visible/{id}")
-    public ResponseEntity<?> visibleProduct(@PathVariable("id")Integer id){
-        return ResponseEntity.ok(productService.visible(id));
+    public ResponseEntity<?> visibleProduct(@PathVariable("id")Integer id,@Valid Product product){
+        return ResponseEntity.ok(productService.visible(id, product));
+    }
+    @PutMapping("/secured/block/{id}")
+    public ResponseEntity<?> hiddenProduct(@PathVariable("id") Integer id){
+        boolean result = productService.block(id);
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping("/getAll")
     public ResponseEntity<?> getAll(@RequestParam("page") Integer page,
                                     @RequestParam("size") Integer size) {
-        if (page == null) {
-            page = 0;
-        }
-        if (size == null) {
-            size = 15;
-        }
-
         ProductListRepository productListRepository = new ProductListRepository();
         productListRepository.setDtoList(productService.getAll(page, size));
         productListRepository.setCount(productService.getProductCount());
@@ -61,14 +63,15 @@ public class ProductController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateProduct(@PathVariable("id") Integer id, @Valid ProductDto dto) {
-        ProductDto result = productService.update(dto, id);
+    public ResponseEntity<?> updateProduct(@PathVariable("id") Integer id,
+                                           @RequestBody ProductDto dto) {
+        String result = productService.update(id, dto);
         return ResponseEntity.ok(result);
     }
             //------------SOFT DELETE-----------//
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable("id")Integer id){
-        boolean result = productService.softDelete(id);
+        boolean result = productService.    softDelete(id);
         return ResponseEntity.ok(result);
     }
             // -------------HARD DELETE----------//
@@ -78,9 +81,9 @@ public class ProductController {
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping("/secured/getAll")
-    public ResponseEntity<?>getById(){
-        Object result = productService.getAllAdmin();
+    @GetMapping("/secured/getAll/{id}")
+    public ResponseEntity<?>getById(@PathVariable("id") Integer id){
+        String result = productService.getAllAdmin(id);
         return ResponseEntity.ok(result);
     }
 

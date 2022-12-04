@@ -17,12 +17,16 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = ("profile_id"), insertable = false, updatable = false)
-    private Integer profileId;
+    private Integer profileInt;
+    @ManyToOne
+    @JoinColumn(name = ("profile_id"), insertable = false, updatable = false)
+    private Profile profileId;
     private String requirement;
     private String contact;
     private String address;
+    @Enumerated(EnumType.STRING)
     private PaymentType paymentType;
+    @Enumerated(EnumType.STRING)
     private OrderStatus status;
     @Column(name = ("delivery_date"), insertable = false, updatable = false)
     private LocalDateTime deliveryDate;

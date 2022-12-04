@@ -15,14 +15,10 @@ public class ProfileCreateDto {
     private String name;
     @NotBlank(message = "Surname can not be empty or null")
     private String surname;
-
     @NotBlank(message = "Email can not be empty or null")
     @Email
     private String email;
-    @NotBlank(message = "Password can not be empty or null")
-    private String password;
-
-    @NotNull(message = "Please enter contact !")
+    @NotBlank(message = "Please enter contact !")
     @NumberFormat
     private String contact;
 
