@@ -47,7 +47,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("api/v1/profile/**").hasAnyRole("ADMIN", "USER", "MODERATOR")
                 .antMatchers("api/v1/profile/secured/**").hasRole("ADMIN")
                 .antMatchers("api/v1/product/**").hasAnyRole("MODERATOR", "ADMIN")
-                .antMatchers("api/v1/product/image/**").hasRole("MODERATOR")
+                .antMatchers("api/v1/product/image/**").hasAnyRole("MODERATOR", "ADMIN")
                 .antMatchers("api/v1/order/item/**").hasAnyRole("MODERATOR", "ADMIN")
                 .antMatchers("api/v1/order/**").hasRole("MODERATOR")
                 .anyRequest().permitAll();

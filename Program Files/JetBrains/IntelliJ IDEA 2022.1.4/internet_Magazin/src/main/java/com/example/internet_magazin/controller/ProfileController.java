@@ -4,12 +4,9 @@ import com.example.internet_magazin.dto.profile.ProfileCreateDto;
 import com.example.internet_magazin.dto.profile.ProfileDto;
 import com.example.internet_magazin.dto.profile.ProfileFilterDto;
 import com.example.internet_magazin.service.ProfileService;
-import com.example.internet_magazin.type.Role;
-import com.example.internet_magazin.util.SecurityUtil;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 

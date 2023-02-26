@@ -16,10 +16,14 @@ public class OrderItem {
     private Integer id;
     @ManyToOne
     @JoinColumn(name = ("order_id"), insertable = false, updatable = false)
-    private Order orderId;
+    private Order order;
     @ManyToOne
     @JoinColumn(name = ("product_id"), insertable = false, updatable = false)
-    private Product productId;
+    private Product product;
+    @Column(name = ("order_id"))
+    private Integer orderId;
+    @Column(name = ("product_id"))
+    private Integer productId;
     private Integer amount;
     private Double price;
     @Column(name = ("deleted_at"))
